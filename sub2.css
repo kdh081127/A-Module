@@ -1,0 +1,457 @@
+/* ==========================================================================
+   1. 기본 설정 및 변수
+   ========================================================================== */
+:root {
+  --primary: #d67ae6; /* 메인 퍼플 */
+  --primary-dark: #a85eff;
+  --dark: #222;
+  --light-gray: #f8f8f8;
+  --border-color: #eee;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit !important;
+}
+
+body {
+  font-family:
+    "Pretendard",
+    -apple-system,
+    sans-serif;
+  color: var(--dark);
+  line-height: 1.6;
+  background-color: #fff;
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+/* 로딩 애니메이션 */
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeOut 0.5s forwards 1.2s;
+}
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.ring {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   2. 헤더 (기존 알약 디자인 유지)
+   ========================================================================== */
+.site-header {
+  background: #fff;
+  border-bottom: 2px solid var(--primary);
+  position: relative;
+  z-index: 1000;
+}
+
+.header-inner {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo a {
+  font-size: 28px;
+  font-weight: 900;
+}
+.logo span {
+  color: var(--primary);
+}
+
+.main-menu {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.gnb {
+  display: flex;
+  gap: 10px;
+}
+.gnb > li {
+  position: relative;
+}
+
+.gnb > li > a {
+  display: block;
+  padding: 0 30px;
+  line-height: 100px;
+  font-weight: 700;
+  font-size: 17px;
+  transition: 0.3s;
+}
+
+.gnb > li:hover > a {
+  color: var(--primary) !important;
+}
+
+/* 메가 메뉴 슬라이딩 (수정됨) */
+.mega-bg {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  height: 0; /* 초기값 */
+  background: #fff;
+  border-bottom: 0px solid #eee;
+  z-index: -1;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+  transition: 0.4s ease-in-out;
+  overflow: hidden;
+}
+
+.sub {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 0; /* 초기값 */
+  padding: 0;
+  text-align: center;
+  z-index: 100;
+  transition: 0.4s ease-in-out;
+  overflow: hidden;
+}
+
+/* 호버 시 슬라이드 다운 */
+.site-header:hover .mega-bg,
+.site-header:hover .sub {
+  height: 200px; /* 서브메뉴가 보일 만큼의 높이 */
+}
+.site-header:hover .mega-bg {
+  border-bottom-width: 1px;
+}
+
+.sub li a {
+  display: block;
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #666 !important;
+  transition: 0.2s;
+}
+
+.sub li a:hover {
+  color: var(--primary) !important;
+  font-weight: 600;
+}
+
+.util-menu {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: 50px; /* 알약 형태 */
+  padding: 5px 20px;
+  background-color: var(--primary);
+}
+.util-menu a {
+  font-size: 14px;
+  font-weight: 600;
+}
+.util-menu .btn-join {
+  background: var(--primary);
+  color: #fff !important;
+  padding: 8px 20px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+/* ==========================================================================
+   3. [전체상품] 본문 스타일 (5열 배치 수정본)
+   ========================================================================== */
+.all-products {
+  padding: 80px 0;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.page-header h2 {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+.page-header p {
+  color: #888;
+  margin-top: 10px;
+}
+
+.category-group {
+  margin-bottom: 100px;
+}
+.category-title {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.category-title span {
+  font-size: 14px;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* 상품 그리드: 5열 배치를 위해 repeat(5, 1fr)로 수정 */
+.product-page-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 20px; /* 간격이 너무 넓으면 상품이 작아지므로 20px로 소폭 조정 */
+}
+
+/* 상품 카드: 높이 동일화 */
+.product-card {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* 인기상품 강조 */
+.product-card.popular {
+  border: 2px solid var(--primary);
+}
+.badge-popular {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--primary);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 800;
+  z-index: 10;
+}
+
+/* 이미지 영역: 5열에서도 일정한 비율 유지 */
+.p-img {
+  width: 100%;
+  aspect-ratio: 1 / 1; 
+  background: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.p-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+  padding: 15px; /* 카드가 작아졌으므로 패딩도 살짝 줄임 */
+  transition: 0.3s;
+}
+.product-card:hover .p-img img {
+  transform: scale(1.1);
+}
+
+/* 정보 영역 */
+.p-info {
+  padding: 15px; /* 내부 여백 조정 */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상품명: 5열에서는 가로가 좁으므로 폰트 크기를 살짝 줄임 */
+.p-info h4 {
+  font-size: 15px; 
+  font-weight: 700;
+  margin-bottom: 8px;
+  height: 2.8em; 
+  line-height: 1.4;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.p-info .price {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+/* 버튼 그룹: 하단 고정 */
+.btn-group {
+  display: flex;
+  gap: 5px;
+  margin-top: auto;
+}
+.btn-cart {
+  flex: 1;
+  height: 38px; /* 버튼 높이 살짝 조정 */
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  transition: 0.3s;
+}
+.btn-buy {
+  flex: 2;
+  height: 38px;
+  border: none;
+  background: var(--primary-dark);
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+/* ==========================================================================
+   4. 푸터
+   ========================================================================== */
+.site-footer {
+  background: #f4f4f4;
+  padding: 60px 0;
+  border-top: 1px solid #ddd;
+  color: #777;
+}
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #ddd;
+}
+.f-menu {
+  display: flex;
+  gap: 20px;
+}
+.f-menu a {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666 !important;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.f-logo {
+  font-size: 24px;
+  font-weight: 900;
+  color: #ccc;
+  margin-bottom: 15px;
+}
+.f-info p {
+  font-size: 13px;
+  line-height: 1.8;
+}
+.sns-icons {
+  display: flex;
+  gap: 15px;
+}
+.sns-icons a {
+  width: 40px;
+  height: 40px;
+  background: #e0e0e0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #fff !important;
+  transition: 0.3s;
+}
+.sns-icons a:hover {
+  background: var(--primary);
+  transform: translateY(-5px);
+}
+
+/* ==========================================================================
+   5. 반응형 (모바일)
+   ========================================================================== */
+@media screen and (max-width: 1200px) {
+  .container {
+    width: 95%;
+  }
+  .product-page-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header-inner {
+    flex-direction: column;
+    height: auto;
+    padding: 20px 0;
+    gap: 15px;
+  }
+  .gnb > li > a {
+    line-height: 40px;
+    padding: 0 10px;
+    font-size: 14px;
+  }
+  .product-page-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  .p-img {
+    height: 180px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+}

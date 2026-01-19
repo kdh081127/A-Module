@@ -1,0 +1,582 @@
+:root {
+  --red: #ff4d4d;
+  --orange: #ff944d;
+  --green: #4dff88;
+  --blue: #4da6ff;
+  --purple: #b84dff;
+  --primary: #d67ae6;
+  --dark: #000;
+  --border-default: #eee;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeOut 0.5s forwards 1.2s;
+}
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.ring {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: var(--dark) !important;
+}
+
+body {
+  font-family: "Pretendard", sans-serif;
+  color: var(--dark);
+  line-height: 1.6;
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.site-header {
+  background: #fff;
+  border-bottom: 2px solid var(--primary);
+  position: relative;
+  z-index: 1000;
+}
+
+.header-inner {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo a {
+  font-size: 28px;
+  font-weight: 900;
+}
+.logo span {
+  color: var(--primary);
+}
+
+.main-menu {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.gnb {
+  display: flex;
+  gap: 10px;
+}
+.gnb > li {
+  position: relative;
+}
+
+.gnb > li > a {
+  display: block;
+  padding: 0 30px;
+  line-height: 100px;
+  font-weight: 700;
+  font-size: 17px;
+  transition: 0.3s;
+}
+
+.gnb > li:hover > a {
+  color: var(--primary) !important;
+}
+
+/* 메가 메뉴 슬라이딩 (수정됨) */
+.mega-bg {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  height: 0; /* 초기값 */
+  background: #fff;
+  border-bottom: 0px solid #eee;
+  z-index: -1;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+  transition: 0.4s ease-in-out;
+  overflow: hidden;
+}
+
+.sub {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 0; /* 초기값 */
+  padding: 0;
+  text-align: center;
+  z-index: 100;
+  transition: 0.4s ease-in-out;
+  overflow: hidden;
+}
+
+/* 호버 시 슬라이드 다운 */
+.site-header:hover .mega-bg,
+.site-header:hover .sub {
+  height: 200px; /* 서브메뉴가 보일 만큼의 높이 */
+}
+.site-header:hover .mega-bg {
+  border-bottom-width: 1px;
+}
+
+.sub li a {
+  display: block;
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #666 !important;
+  transition: 0.2s;
+}
+
+.sub li a:hover {
+  color: var(--primary) !important;
+  font-weight: 600;
+}
+
+.util-menu {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: 50px; /* 알약 형태 */
+  padding: 5px 20px;
+  background-color: var(--primary);
+}
+.util-menu a {
+  font-size: 14px;
+  font-weight: 600;
+}
+.util-menu .btn-join {
+  background: var(--primary);
+  color: #fff !important;
+  padding: 8px 20px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+/* ==========================================================================
+   소개 페이지 스펙 섹션 (Spec & Performance)
+   ========================================================================== */
+.about-spec {
+  padding: 100px 0;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.spec-summary {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.spec-summary h3 {
+  font-size: 28px;
+  font-weight: 500;
+  color: #333;
+}
+.spec-summary h3 strong {
+  color: var(--primary);
+  font-weight: 900;
+}
+
+/* 4열 그리드 레이아웃 */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-bottom: 80px;
+}
+
+.spec-item {
+  text-align: center;
+  padding: 30px 20px;
+  background: #fdfdfd;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+.spec-item:hover {
+  background: #fff;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+  transform: translateY(-5px);
+}
+
+/* 숫자 강조 */
+.spec-item .num {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--primary);
+  margin-bottom: 10px;
+  font-family: 'Arial', sans-serif; /* 숫자는 깔끔한 고딕 계열 추천 */
+}
+
+.spec-item p {
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.spec-item span {
+  font-size: 13px;
+  color: #888;
+  display: block;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+/* 인증 배지 영역 */
+.spec-badges {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  padding-top: 50px;
+  border-top: 1px solid #f5f5f5;
+}
+
+.badge-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #aaa;
+}
+.badge-item i {
+  font-size: 20px;
+}
+.badge-item span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   소개 페이지 (About) 전용 디자인
+   ========================================================================== */
+
+/* 1. 히어로 섹션: 메인 비주얼보다 조금 더 무게감 있게 */
+.about-hero {
+  padding: 120px 0;
+  background: linear-gradient(135deg, #f5e6f0 0%, #e8d5f2 100%);
+  text-align: center;
+}
+.about-hero .hero-text span {
+  color: var(--primary);
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+.about-hero h2 {
+  font-size: 48px;
+  font-weight: 900;
+  margin: 20px 0;
+  line-height: 1.3;
+}
+.about-hero h2 span { color: var(--primary); }
+
+/* 2. 브랜드 스토리 그리드 (이미지 + 글) */
+.brand-story {
+  padding: 100px 0;
+}
+.story-grid {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+.story-img {
+  flex: 1;
+  height: 400px;
+  background: #eee;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.story-img img { width: 100%; height: 100%; object-fit: cover; }
+
+.story-content { flex: 1; }
+.story-content .section-title { text-align: left; margin-bottom: 20px; }
+.story-content p { font-size: 18px; color: #555; margin-bottom: 30px; }
+
+/* 3. 수치로 증명하는 신뢰도 (강한 인상 포인트) */
+.stats {
+  display: flex;
+  gap: 40px;
+  border-top: 1px solid #eee;
+  padding-top: 30px;
+}
+.stat-item strong {
+  display: block;
+  font-size: 32px;
+  color: var(--primary);
+  font-weight: 900;
+}
+.stat-item span { font-size: 14px; color: #888; }
+
+/* ==========================================================================
+   소개 페이지 하단 모토 섹션 (Motto Section)
+   ========================================================================== */
+.about-motto {
+  padding: 150px 0; /* 위아래 여백을 넉넉히 주어 모토에 집중하게 함 */
+  background-color: #f9f9f9; /* 푸터와 구분되는 아주 연한 회색 배경 */
+  text-align: center;
+  position: relative;
+}
+
+/* 모토 강조 라벨 */
+.motto-label {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 3px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+/* 모토 텍스트 */
+.motto-text {
+  font-size: 42px;
+  font-weight: 900;
+  color: #222;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+/* 텍스트 내 강조 키워드 (보라색) */
+.motto-text span {
+  color: var(--primary);
+  position: relative;
+}
+
+/* 텍스트 아래 은은한 강조선 (선택사항) */
+.motto-text span::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: var(--primary);
+  opacity: 0.15;
+  z-index: -1;
+}
+
+/* 하단 보조 설명 */
+.motto-sub {
+  margin-top: 40px;
+  font-size: 18px;
+  color: #777;
+  font-weight: 500;
+}
+
+.site-footer {
+  background: #f4f4f4; /* 밝은 회색으로 변경 */
+  color: #666;
+  padding: 50px 0;
+  font-size: 13px;
+  border-top: 1px solid #ddd;
+}
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.f-menu {
+  display: flex;
+  gap: 20px;
+}
+.f-menu a {
+  color: #666 !important;
+  font-weight: 600;
+}
+.f-menu a b {
+  color: #000;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.f-logo {
+  font-size: 24px;
+  font-weight: 900;
+  color: #bbb;
+  margin-bottom: 10px;
+} /* 심벌로고 단일색 */
+.f-info p {
+  line-height: 1.8;
+  color: #888;
+}
+.copy {
+  font-weight: 700;
+  color: #444;
+  margin-top: 10px;
+}
+
+/* SNS 아이콘 애니메이션 */
+.sns-icons {
+  display: flex;
+  gap: 10px;
+}
+/* SNS 아이콘 스타일 */
+.sns-icons a {
+  font-size: 20px;     /* 아이콘 크기 조절 */
+  color: #ccc;         /* 기본 회색 */
+  transition: 0.4s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* 호버 시 SNS 브랜드 컬러로 변경 */
+.sns-icons a:hover .fa-facebook-f { color: #1877F2; }
+.sns-icons a:hover .fa-instagram { color: #E4405F; }
+.sns-icons a:hover .fa-youtube   { color: #FF0000; }
+/* SNS 호버 시 고유 색상 전환 */
+.sns-icons a:nth-child(2):hover {
+  background: #1877f2;
+} /* FB */
+.sns-icons a:nth-child(3):hover {
+  background: #e4405f;
+} /* IG */
+.sns-icons a:nth-child(4):hover {
+  background: #ff0000;
+} /* YT */
+
+/* ==========================================================================
+   8. 반응형 디자인 (Mobile & Tablet)
+   ========================================================================== */
+
+@media screen and (max-width: 768px) {
+  /* 공통 컨테이너 조정 */
+  .container {
+    width: 95%; /* 양옆 여백 확보 */
+    margin: 0 auto;
+  }
+
+  /* --- 헤더 반응형 --- */
+  .header-inner {
+    flex-direction: column; /* 세로로 배치 */
+    height: auto;
+    padding: 20px 0;
+    gap: 15px;
+  }
+
+  .main-menu {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .gnb {
+    padding: 5px 15px;
+    flex-wrap: wrap; /* 메뉴가 많으면 다음 줄로 넘어가게 함 */
+    justify-content: center;
+  }
+
+  .gnb > li > a {
+    padding: 0 10px;
+    line-height: 40px;
+    font-size: 14px;
+  }
+
+  /* 유틸리티 알약 메뉴 */
+  .util-menu {
+    padding: 5px 15px;
+    gap: 5px;
+  }
+  
+  .util-menu a {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  /* --- 상품 그리드 반응형 --- */
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr); /* 5열 -> 2열로 변경 */
+    grid-template-rows: auto; /* 높이 제한 해제 */
+    grid-auto-flow: row; /* 세로 나열 방식을 일반적인 가로-세로 순으로 변경 */
+    gap: 10px;
+  }
+  
+  .product-item {
+    height: 180px; /* 모바일에서 적절한 높이 */
+  }
+
+  /* --- 소개(About) 페이지 반응형 --- */
+  .about-hero h2 {
+    font-size: 28px; /* 폰트 크기 축소 */
+  }
+
+  .spec-grid {
+    grid-template-columns: repeat(2, 1fr); /* 4열 -> 2열 */
+    gap: 15px;
+  }
+
+  .spec-item .num {
+    font-size: 28px;
+  }
+
+  .spec-badges {
+    flex-direction: column; /* 배지 세로 나열 */
+    gap: 20px;
+    align-items: center;
+  }
+
+  .motto-text {
+    font-size: 24px; /* 모토 텍스트 축소 */
+    padding: 0 10px;
+  }
+
+  /* --- 푸터 반응형 --- */
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .f-info {
+    order: 2; /* 정보가 아래로 */
+  }
+
+  .sns-icons {
+    order: 1; /* SNS 아이콘이 위로 */
+  }
+}
